@@ -4,10 +4,20 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// Generate random ID
+const generateRandomId = (): string => {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < 8; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+};
+
 // Validation schema for student creation
 const createStudentSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  tag: z.string().min(1, "Tag is required"),
+  tag: z.string().optional(), // Now optional, will be auto-generated if not provided
   choice: z.string().min(1, "First choice is required"),
   secondChoice: z.string().min(1, "Second choice is required"),
 });
@@ -98,9 +108,23 @@ export async function GET() {
     });
 
     // Add certificate URLs to each student
-    const studentsWithCertificates = students.map(student => {
-      const certificateUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/certificates/${student.tag}?name=${encodeURIComponent(student.name)}&level=${encodeURIComponent(student.degree)}%20of%20${encodeURIComponent(student.department)}&module=${encodeURIComponent(student.department)}&score=${student.gpa}%20/%205.00&date=${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}&theme=light&format=svg`;
-      
+    const studentsWithCertificates = students.map((student) => {
+      const certificateUrl = `${
+        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      }/api/certificates/${student.tag}?name=${encodeURIComponent(
+        student.name
+      )}&level=${encodeURIComponent(
+        student.degree
+      )}%20of%20${encodeURIComponent(
+        student.department
+      )}&module=${encodeURIComponent(student.department)}&score=${
+        student.gpa
+      }%20/%205.00&date=${new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}&theme=light&format=svg`;
+
       return {
         ...student,
         certificate: certificateUrl,
@@ -131,9 +155,15 @@ export async function POST(request: NextRequest) {
 
     const { name, tag, choice, secondChoice } = validatedData;
 
+    // Generate random tag if not provided
+    let finalTag = tag;
+    if (!finalTag) {
+      finalTag = generateRandomId();
+    }
+
     // Check if student already exists
     const existingStudent = await prisma.student.findUnique({
-      where: { tag },
+      where: { tag: finalTag },
     });
 
     if (existingStudent) {
@@ -151,7 +181,7 @@ export async function POST(request: NextRequest) {
     // Create new student
     const student = await prisma.student.create({
       data: {
-        tag,
+        tag: finalTag,
         name: name.trim(),
         department,
         gpa,
@@ -160,7 +190,19 @@ export async function POST(request: NextRequest) {
     });
 
     // Generate certificate URL
-    const certificateUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/certificates/${tag}?name=${encodeURIComponent(name.trim())}&level=${encodeURIComponent(degree)}%20of%20${encodeURIComponent(department)}&module=${encodeURIComponent(department)}&score=${gpa}%20/%205.00&date=${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}&theme=light&format=svg`;
+    const certificateUrl = `${
+      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    }/api/certificates/${finalTag}?name=${encodeURIComponent(
+      name.trim()
+    )}&level=${encodeURIComponent(degree)}%20of%20${encodeURIComponent(
+      department
+    )}&module=${encodeURIComponent(
+      department
+    )}&score=${gpa}%20/%205.00&date=${new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}&theme=light&format=svg`;
 
     // Return student with certificate URL
     return NextResponse.json({

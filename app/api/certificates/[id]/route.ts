@@ -70,8 +70,8 @@ function certificateSVG({
   score = "4.35 / 5.00",
   date = dayjs().format("Do MMMM, YYYY"),
   certId = "UWU-2025-08-20-AX93K7",
-  logoURL = "",
-  sig1URL = "", // Chancellor
+  logoURL = "/images/logo.png",
+  sig1URL = "/images/signature.png", // Chancellor
   sig2URL = "", // Registrar
   qrDataURL = "", // optional
   withQR = false,
@@ -133,10 +133,7 @@ function certificateSVG({
     ${
       logoURL
         ? `<image href="${logoURL}" x="30" y="30" width="100" height="100" preserveAspectRatio="xMidYMid meet"/>`
-        : `<g transform="translate(80,80)">
-             <path d="M -12 0 L 0 -12 L 12 0 L 0 12 Z" fill="url(#goldGrad)"/>
-             <circle r="4" cy="20" fill="url(#goldGrad)"/>
-           </g>`
+        : ``
     }
   </g>
 
