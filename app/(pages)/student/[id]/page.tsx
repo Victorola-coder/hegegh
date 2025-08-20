@@ -13,16 +13,6 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 
-interface Student {
-  id: string;
-  name: string;
-  department: string;
-  gpa: number;
-  degree: string;
-  tag: string;
-  certificate?: string;
-}
-
 export default function StudentPage({
   params,
 }: {

@@ -12,16 +12,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-interface Student {
-  id: string;
-  name: string;
-  department: string;
-  gpa: number;
-  degree: string;
-  tag: string;
-  certificate?: string;
-}
-
 export default function VerifyPage({
   params,
 }: {

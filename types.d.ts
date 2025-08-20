@@ -85,3 +85,19 @@ type TextareaProps = {
 type OTPState = {
   [key: string]: string;
 };
+
+// Student and related types
+interface Student {
+  id: string;
+  name: string;
+  department: string;
+  gpa: number;
+  degree: string;
+  tag: string;
+  certificate?: string;
+}
+
+interface CachedData {
+  students: Student[];
+  count: number;
+}

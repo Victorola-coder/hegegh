@@ -2,15 +2,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 
-interface Student {
-  id: string;
-  name: string;
-  department: string;
-  gpa: number;
-  degree: string;
-  tag: string;
-}
-
 interface StudentCardProps {
   student: Student;
 }

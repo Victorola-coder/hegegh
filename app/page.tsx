@@ -1,19 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Users, Award, BookOpen, Sparkles, ArrowRight } from "lucide-react";
+import {
+  GraduationCap,
+  Users,
+  Award,
+  BookOpen,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
+import { cacheManager } from "./lib/cache";
 import { useEffect, useState } from "react";
 import StudentCard from "./components/StudentCard";
-
-interface Student {
-  id: string;
-  name: string;
-  department: string;
-  gpa: number;
-  degree: string;
-  tag: string;
-}
 
 export default function HomePage() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -21,16 +20,47 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/students")
-      .then((res) => res.json())
-      .then((data) => {
-        setStudents(data[0] || []);
-        setCount(data[1] || 0);
+    const fetchData = async () => {
+      const cacheKey = "homepage-students-data";
+
+      // Try to get cached data first
+      const cachedData = cacheManager.get<CachedData>(cacheKey);
+
+      if (cachedData) {
+        setStudents(cachedData.students);
+        setCount(cachedData.count);
         setLoading(false);
-      })
-      .catch(() => {
+        return;
+      }
+
+      // If no cached data, fetch from API
+      try {
+        const response = await fetch("/api/students");
+        const data = await response.json();
+
+        const studentsData = data[0] || [];
+        const countData = data[1] || 0;
+
+        setStudents(studentsData);
+        setCount(countData);
+
+        // Cache the data for 10 minutes
+        cacheManager.set(
+          cacheKey,
+          {
+            students: studentsData,
+            count: countData,
+          },
+          10
+        );
+      } catch (error) {
+        console.error("Error fetching students data:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const totalCount = new Intl.NumberFormat("en-US").format(
@@ -42,7 +72,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-4 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-transparent to-secondary-100/20" />
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,7 +96,8 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-dark-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of young people gaining wisdom, knowledge, and understanding about money, relationships, and life.
+            Join thousands of young people gaining wisdom, knowledge, and
+            understanding about money, relationships, and life.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -81,7 +112,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -101,7 +132,7 @@ export default function HomePage() {
         >
           <Award className="w-16 h-16" />
         </motion.div>
-        
+
         <motion.div
           animate={{ y: [10, -10, 10] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -121,27 +152,33 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-primary-600 mb-2">{totalCount}+</div>
+              <div className="text-4xl font-bold text-primary-600 mb-2">
+                {totalCount}+
+              </div>
               <div className="text-dark-600">Wisdom Seekers</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-secondary-600 mb-2">25+</div>
+              <div className="text-4xl font-bold text-secondary-600 mb-2">
+                25+
+              </div>
               <div className="text-dark-600">Wisdom Modules</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-accent-600 mb-2">100%</div>
+              <div className="text-4xl font-bold text-accent-600 mb-2">
+                100%
+              </div>
               <div className="text-dark-600">Street Intelligence</div>
             </motion.div>
           </div>
@@ -173,11 +210,11 @@ export default function HomePage() {
             ))}
           </div>
         )}
-        
+
         <p className="mb-12 text-dark-600 font-medium">
           And {totalCount} other wisdom seekers
         </p>
-        
+
         <Link href="/enroll">
           <motion.button
             whileHover={{ scale: 1.05 }}
