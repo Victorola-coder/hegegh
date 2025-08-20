@@ -41,7 +41,7 @@ const Header = () => {
               <img
                 src="/images/logo.png"
                 alt="logo"
-                className="w-10 h-10 rounded-full"
+                className="size-[40px] rounded-full"
               />
             </div>
           </Link>

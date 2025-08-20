@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://university-of-wisdom.vercel.app"),
   icons: {
-    icon: "/favicon.png",
+    icon: "/icon.png",
   },
   title: "University of Wisdom and Understanding - Get Your Certificate",
   description:
