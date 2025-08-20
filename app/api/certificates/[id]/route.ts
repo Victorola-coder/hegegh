@@ -10,33 +10,33 @@ const ORIGIN =
 
 const THEMES = {
   light: {
-    bg: "#F9FAFB",
-    ribbonFrom: "#1F2937",
-    ribbonTo: "#0B1220",
-    goldStops: ["#F6E27A", "#D4AF37", "#B8860B"],
+    bg: "#FDFBF7",
+    ribbonFrom: "#004225",
+    ribbonTo: "#002D1A",
+    goldStops: ["#CFAE35", "#B8860B", "#8B6914"],
     titleFill: "url(#goldGrad)",
-    bodyText: "#111827",
-    muted: "#6B7280",
+    bodyText: "#333333",
+    muted: "#666666",
     cardStroke: "#E5E7EB",
   },
   dark: {
-    bg: "#0B0E14",
-    ribbonFrom: "#0F172A",
-    ribbonTo: "#020617",
-    goldStops: ["#EAB308", "#A16207", "#854D0E"],
-    titleFill: "#FDE68A",
-    bodyText: "#E5E7EB",
-    muted: "#94A3B8",
-    cardStroke: "#1F2937",
+    bg: "#1A1A1A",
+    ribbonFrom: "#004225",
+    ribbonTo: "#002D1A",
+    goldStops: ["#CFAE35", "#B8860B", "#8B6914"],
+    titleFill: "#CFAE35",
+    bodyText: "#FDFBF7",
+    muted: "#CCCCCC",
+    cardStroke: "#333333",
   },
   royal: {
     bg: "#F8F7FF",
-    ribbonFrom: "#312E81",
-    ribbonTo: "#1E1B4B",
-    goldStops: ["#C4B5FD", "#A78BFA", "#8B5CF6"],
-    titleFill: "#6D28D9",
-    bodyText: "#0F172A",
-    muted: "#475569",
+    ribbonFrom: "#004225",
+    ribbonTo: "#002D1A",
+    goldStops: ["#CFAE35", "#B8860B", "#8B6914"],
+    titleFill: "#004225",
+    bodyText: "#333333",
+    muted: "#666666",
     cardStroke: "#E2E8F0",
   },
 };
@@ -51,7 +51,7 @@ function certificateSVG({
   certId = "UWU-2025-08-20-AX93K7",
   qrDataURL = "",
 }) {
-  const t = THEMES[theme] || THEMES.light;
+  const t = THEMES[theme as keyof typeof THEMES] || THEMES.light;
 
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
@@ -151,15 +151,12 @@ function certificateSVG({
     };">${escapeXML(date)}</text>
   </g>
 
-  <!-- QR + Seal block -->
   <g transform="translate(1180,740)">
-    <!-- QR -->
     <rect x="-100" y="-100" width="160" height="160" rx="12" fill="#FFFFFF" stroke="${
       t.cardStroke
     }" stroke-width="2" filter="url(#shadow)"/>
     <image xlink:href="${qrDataURL}" x="-92" y="-92" width="144" height="144" />
 
-    <!-- Seal -->
     <g transform="translate(120,0)">
       <circle cx="0" cy="0" r="78" fill="white" stroke="url(#goldGrad)" stroke-width="6" filter="url(#shadow)"/>
       <circle cx="0" cy="0" r="60" fill="url(#goldGrad)" opacity="0.2"/>
@@ -194,10 +191,9 @@ function certificateSVG({
 
   <g transform="translate(200,950)">
     <text class="mono" style="font-size:14px; fill:${t.muted};">
-      Certificate ID: ${escapeXML(certId)} • Verify at: ${ORIGIN.replace(
-    /^https?:\/\//,
-    "https://"
-  )}/verify/${encodeURIComponent(certId)}
+      Certificate ID: ${escapeXML(certId)} • Verify at: ${(
+    ORIGIN || "localhost:3000"
+  ).replace(/^https?:\/\//, "https://")}/verify/${encodeURIComponent(certId)}
     </text>
   </g>
 </svg>`;
@@ -230,11 +226,11 @@ export async function GET(
 
     const { id } = params;
 
-    // Build verify URL for QR
-    const base = ORIGIN.startsWith("http") ? ORIGIN : `https://${ORIGIN}`;
+    const base = (ORIGIN || "localhost:3000").startsWith("http")
+      ? ORIGIN
+      : `https://${ORIGIN || "localhost:3000"}`;
     const verifyUrl = `${base}/verify/${encodeURIComponent(id)}`;
 
-    // Create QR as data URL
     const qrDataURL = await QRCode.toDataURL(verifyUrl, {
       margin: 0,
       scale: 6,
@@ -254,14 +250,15 @@ export async function GET(
     });
 
     if (format === "png") {
-      // PNG generation temporarily disabled due to native binding issues
       return NextResponse.json(
-        { error: "PNG generation temporarily unavailable. Please use SVG format." },
+        {
+          error:
+            "PNG generation temporarily unavailable. Please use SVG format.",
+        },
         { status: 503 }
       );
     }
 
-    // Default: return SVG
     return new NextResponse(svg, {
       headers: {
         "Content-Type": "image/svg+xml; charset=utf-8",

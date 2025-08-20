@@ -2,17 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #004225;
+  --secondary: #cfae35;
+  --accent: #b8860b;
+  --light: #fdfbf7;
+  --white: #ffffff;
+  --dark: #333333;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: 1px solid red; */
 }
 
 body {
-  /* color: white; */
-  /* background-color: #0f0f0f; */
   overflow-x: hidden;
+  background-color: var(--light);
+  color: var(--dark);
 }
 
 body::-webkit-scrollbar {
@@ -23,7 +31,6 @@ body::-webkit-scrollbar-corner {
   @apply bg-transparent;
 }
 
-/* scrollbar */
 body::-webkit-scrollbar-track {
   @apply bg-primary;
 }
@@ -57,27 +64,23 @@ html.lenis {
   pointer-events: none;
 }
 
-/* CODE TO REMOVE NUMBER RANGE ON INPUT */
-/* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Wisdom-specific animations */
 @keyframes wisdom-glow {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(0, 66, 37, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 40px rgba(0, 66, 37, 0.6);
   }
 }
 
@@ -85,9 +88,8 @@ input[type="number"] {
   animation: wisdom-glow 3s ease-in-out infinite;
 }
 
-/* Gradient text effect */
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6, #f59e0b, #10b981);
+  background: linear-gradient(135deg, #004225, #cfae35, #b8860b);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -95,15 +97,24 @@ input[type="number"] {
   animation: gradient 3s ease infinite;
 }
 
-/* Glass morphism effect */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(253, 251, 247, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(253, 251, 247, 0.2);
 }
 
 .glass-dark {
   background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(253, 251, 247, 0.1);
+}
+
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
