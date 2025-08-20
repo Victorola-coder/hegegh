@@ -84,23 +84,32 @@ export async function GET() {
     // Test database connection first
     await prisma.$connect();
 
-    const [students, count] = await Promise.all([
-      prisma.student.findMany({
-        select: {
-          id: true,
-          name: true,
-          department: true,
-          gpa: true,
-          degree: true,
-          tag: true,
-        },
-        orderBy: { createdAt: "desc" },
-        take: 20,
-      }),
-      prisma.student.count(),
-    ]);
+    const students = await prisma.student.findMany({
+      select: {
+        id: true,
+        name: true,
+        department: true,
+        gpa: true,
+        degree: true,
+        tag: true,
+      },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
 
-    return NextResponse.json([students, count]);
+    // Add certificate URLs to each student
+    const studentsWithCertificates = students.map(student => {
+      const certificateUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/certificates/${student.tag}?name=${encodeURIComponent(student.name)}&level=${encodeURIComponent(student.degree)}%20of%20${encodeURIComponent(student.department)}&module=${encodeURIComponent(student.department)}&score=${student.gpa}%20/%205.00&date=${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}&theme=light&format=svg`;
+      
+      return {
+        ...student,
+        certificate: certificateUrl,
+      };
+    });
+
+    const count = await prisma.student.count();
+
+    return NextResponse.json([studentsWithCertificates, count]);
   } catch (error) {
     console.error("Error fetching students:", error);
     return NextResponse.json(
@@ -150,7 +159,14 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json(student);
+    // Generate certificate URL
+    const certificateUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/certificates/${tag}?name=${encodeURIComponent(name.trim())}&level=${encodeURIComponent(degree)}%20of%20${encodeURIComponent(department)}&module=${encodeURIComponent(department)}&score=${gpa}%20/%205.00&date=${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}&theme=light&format=svg`;
+
+    // Return student with certificate URL
+    return NextResponse.json({
+      ...student,
+      certificate: certificateUrl,
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

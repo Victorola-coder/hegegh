@@ -19,7 +19,7 @@ import Link from "next/link";
 
 const AboutPage = () => {
   const stats = [
-    { icon: Users, number: "10,000+", label: "Students Enrolled" },
+    { icon: Users, number: "10,000+", label: "Naija People Don Collect" },
     { icon: Award, number: "5,000+", label: "Certificates Issued" },
     { icon: Globe, number: "50+", label: "Countries Reached" },
     { icon: Star, number: "4.9/5", label: "Student Satisfaction" },
@@ -27,51 +27,49 @@ const AboutPage = () => {
 
   const values = [
     {
-      icon: Lightbulb,
-      title: "Innovation",
+      icon: Heart,
+      title: "Community",
       description:
-        "Pioneering new approaches to wisdom and understanding in the digital age.",
+        "We dey build one big family of people wey sabi sense for street and book.",
     },
     {
-      icon: Heart,
-      title: "Compassion",
+      icon: Lightbulb,
+      title: "Street Smartness",
       description:
-        "Fostering empathy and kindness in all our educational endeavors.",
+        "We combine street wisdom with book knowledge. No forming, just real-life sense.",
     },
     {
       icon: Target,
       title: "Excellence",
-      description:
-        "Striving for the highest standards in wisdom and knowledge sharing.",
+      description: "We no dey do shakara. Everything we do na top quality.",
     },
     {
       icon: Shield,
       title: "Integrity",
-      description:
-        "Maintaining honesty and ethical principles in everything we do.",
+      description: "We dey honest with our people. No lies, no fake promises.",
     },
   ];
 
   const features = [
     {
       icon: Zap,
-      title: "Instant Certification",
-      description: "Get your wisdom certificate immediately upon completion",
+      title: "Sharp-Sharp Certificate",
+      description: "Get your certificate immediately, no stress",
     },
     {
       icon: Globe,
-      title: "Global Recognition",
-      description: "Certificates recognized worldwide for their authenticity",
+      title: "Recognized Across Naija",
+      description: "Your certificate fit work anywhere, anytime",
     },
     {
       icon: BookOpen,
-      title: "Comprehensive Learning",
-      description: "Deep dive into various aspects of wisdom and understanding",
+      title: "Real Life Wisdom",
+      description: "No be book knowledge alone, na practical sense",
     },
     {
       icon: Users,
-      title: "Community Support",
-      description: "Join a global community of wisdom seekers",
+      title: "Big Family",
+      description: "Join our community of wise people",
     },
   ];
 
@@ -88,22 +86,21 @@ const AboutPage = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-primary-700 bg-primary-100 rounded-full">
               <GraduationCap className="w-4 h-4" />
-              <span>About University of Wisdom</span>
+              <span>About GehGeh University</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                Wisdom for the
+                Wisdom Wey You Fit
               </span>
               <br />
-              <span className="text-gray-900">Modern World</span>
+              <span className="text-gray-900">Collect Sharp-Sharp</span>
             </h1>
 
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-              We are revolutionizing education by making wisdom accessible to
-              everyone. Our innovative approach combines ancient knowledge with
-              modern technology to create a truly transformative learning
-              experience.
+              No be by long grammar. We dey make am easy for you to collect your
+              own &apos;GehGeh&apos; certificate. Just enter, pick your level of
+              wisdom, and boom—you don get am!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -117,14 +114,6 @@ const AboutPage = () => {
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </Link>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-8 py-4 text-primary-600 border-2 border-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-all duration-300"
-              >
-                Watch Our Story
-              </motion.button>
             </div>
           </motion.div>
         </div>
@@ -177,14 +166,9 @@ const AboutPage = () => {
                 Our Mission
               </h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                To democratize wisdom and make profound knowledge accessible to
-                every individual on the planet. We believe that wisdom should
-                not be confined to ivory towers or expensive institutions.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Through our innovative platform, we&apos;re creating a world
-                where anyone can access the wisdom of the ages, develop their
-                understanding, and earn recognition for their journey of growth.
+                Our mission na to give everybody for Naija chance to sabi better
+                wisdom. No need to spend big money or waka go far. Just collect
+                your certificate from your phone.
               </p>
 
               <div className="flex items-center gap-4">
@@ -210,25 +194,25 @@ const AboutPage = () => {
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
-                    <span>Instant digital certification</span>
+                    <span>Sharp-sharp digital certificate</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
-                    <span>Global community of learners</span>
+                    <span>Big family of learners</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
-                    <span>Cutting-edge learning technology</span>
+                    <span>Real life wisdom, no shakara</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center mt-0.5">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
-                    <span>Lifetime access to wisdom resources</span>
+                    <span>Lifetime access to wisdom</span>
                   </li>
                 </ul>
               </div>
@@ -333,11 +317,11 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold text-white mb-6">
-              Ready to Begin Your Wisdom Journey?
+              Ready to Collect Your Wisdom?
             </h2>
             <p className="text-xl text-primary-100 mb-8">
-              Join thousands of students who have already transformed their
-              lives through wisdom.
+              Join thousands of people who don already collect their
+              certificates.
             </p>
 
             <Link href="/enroll">

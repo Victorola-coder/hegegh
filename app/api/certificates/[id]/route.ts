@@ -1,6 +1,6 @@
 import QRCode from "qrcode";
 import dayjs from "dayjs";
-import { Resvg } from "@resvg/resvg-js";
+// import { Resvg } from "@resvg/resvg-js"; // Temporarily disabled due to native binding issues
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -295,17 +295,14 @@ export async function GET(
     });
 
     if (format === "png") {
-      const resvg = new Resvg(svg, {
-        fitTo: { mode: "width", value: 1600 },
-        background: "transparent",
-      });
-      const pngData = resvg.render().asPng();
-      return new NextResponse(Buffer.from(pngData), {
-        headers: {
-          "Content-Type": "image/png",
-          "Content-Disposition": `inline; filename="${id}.png"`,
+      // PNG generation temporarily disabled due to native binding issues
+      return NextResponse.json(
+        {
+          error:
+            "PNG generation temporarily unavailable. Please use SVG format.",
         },
-      });
+        { status: 503 }
+      );
     }
 
     return new NextResponse(svg, {
