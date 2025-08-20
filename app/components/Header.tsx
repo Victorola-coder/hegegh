@@ -38,7 +38,11 @@ const Header = () => {
               <span className="font-bold text-xl text-gray-900 hidden sm:block group-hover:text-primary-600 transition-colors">
                 UOW
               </span> */}
-              <img src="/images/logo.png" alt="logo" className="w-10 h-10" />
+              <img
+                src="/images/logo.png"
+                alt="logo"
+                className="w-10 h-10 rounded-full"
+              />
             </div>
           </Link>
 
@@ -46,6 +50,11 @@ const Header = () => {
             <Link href="/">
               <span className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200">
                 Home
+              </span>
+            </Link>
+            <Link href="/about">
+              <span className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200">
+                Learn More
               </span>
             </Link>
             <a
@@ -101,6 +110,11 @@ const Header = () => {
                 <Link href="/" onClick={closeMenu}>
                   <div className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200 py-2 px-3 rounded-md hover:bg-gray-50">
                     Home
+                  </div>
+                </Link>
+                <Link href="/about" onClick={closeMenu}>
+                  <div className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200 py-2 px-3 rounded-md hover:bg-gray-50">
+                    Learn More
                   </div>
                 </Link>
                 <a

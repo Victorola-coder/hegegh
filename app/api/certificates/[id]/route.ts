@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import QRCode from "qrcode";
 import dayjs from "dayjs";
-import { Resvg } from "@resvg/resvg-js";
+// import { Resvg } from "@resvg/resvg-js"; // Temporarily disabled due to native binding issues
 
 const ORIGIN =
-  process.env.NEXT_PUBLIC_APP_URL ||
-  process.env.VERCEL_URL?.startsWith("http")
+  process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL?.startsWith("http")
     ? process.env.VERCEL_URL
     : `https://${process.env.VERCEL_URL || "localhost:3000"}`;
 
@@ -75,13 +74,17 @@ function certificateSVG({
       .serif { font-family: "Georgia", "Times New Roman", serif; }
       .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
       .muted { fill: ${t.muted}; }
-      .label { fill: ${t.bodyText}; opacity: 0.8; letter-spacing: 0.08em; text-transform: uppercase; }
+      .label { fill: ${
+        t.bodyText
+      }; opacity: 0.8; letter-spacing: 0.08em; text-transform: uppercase; }
     </style>
   </defs>
 
   <rect x="0" y="0" width="1600" height="1100" fill="${t.bg}"/>
   <rect x="40" y="40" width="1520" height="1020" fill="none" stroke="url(#goldGrad)" stroke-width="8" rx="24"/>
-  <rect x="60" y="60" width="1480" height="980" fill="none" stroke="${t.cardStroke}" stroke-width="2" rx="20"/>
+  <rect x="60" y="60" width="1480" height="980" fill="none" stroke="${
+    t.cardStroke
+  }" stroke-width="2" rx="20"/>
 
   <g opacity="0.06">
     <circle cx="800" cy="550" r="420" fill="url(#goldGrad)"/>
@@ -95,7 +98,9 @@ function certificateSVG({
         <circle cx="0" cy="20" r="6" fill="url(#goldGrad)"/>
       </g>
     </g>
-    <text x="600" y="120" class="brand" style="font-size:54px; font-weight:700; fill:${t.titleFill};">UNIVERSITY OF WISDOM &amp; UNDERSTANDING</text>
+    <text x="600" y="120" class="brand" style="font-size:54px; font-weight:700; fill:${
+      t.titleFill
+    };">UNIVERSITY OF WISDOM &amp; UNDERSTANDING</text>
     <text x="600" y="160" class="sans muted" style="font-size:18px;">"Real lessons. Real assets."</text>
   </g>
 
@@ -108,10 +113,14 @@ function certificateSVG({
 
   <g transform="translate(160,390)">
     <text class="label sans" x="640" y="0" text-anchor="middle" style="font-size:16px;">THIS CERTIFIES THAT</text>
-    <text id="studentName" class="brand" x="640" y="72" text-anchor="middle" style="font-size:72px; fill:${t.bodyText};">
+    <text id="studentName" class="brand" x="640" y="72" text-anchor="middle" style="font-size:72px; fill:${
+      t.bodyText
+    };">
       ${escapeXML(studentName)}
     </text>
-    <line x1="260" y1="86" x2="1020" y2="86" stroke="${t.cardStroke}" stroke-width="2"/>
+    <line x1="260" y1="86" x2="1020" y2="86" stroke="${
+      t.cardStroke
+    }" stroke-width="2"/>
   </g>
 
   <g transform="translate(160,520)">
@@ -121,49 +130,74 @@ function certificateSVG({
     </text>
 
     <text class="label sans" x="0" y="110" style="font-size:16px;">IN</text>
-    <text id="module" class="serif" x="0" y="160" style="font-size:36px; fill:${t.bodyText};">
+    <text id="module" class="serif" x="0" y="160" style="font-size:36px; fill:${
+      t.bodyText
+    };">
       ${escapeXML(module)}
     </text>
   </g>
 
   <g transform="translate(980,510)">
-    <rect x="0" y="0" width="420" height="200" rx="16" fill="#FFFFFF" stroke="${t.cardStroke}" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="420" height="200" rx="16" fill="#FFFFFF" stroke="${
+      t.cardStroke
+    }" stroke-width="2" filter="url(#shadow)"/>
     <text class="label sans" x="32" y="48" style="font-size:14px;">WISDOM SCORE</text>
-    <text id="score" class="serif" x="32" y="98" style="font-size:36px; fill:${t.bodyText};">${escapeXML(score)}</text>
+    <text id="score" class="serif" x="32" y="98" style="font-size:36px; fill:${
+      t.bodyText
+    };">${escapeXML(score)}</text>
     <text class="label sans" x="32" y="148" style="font-size:14px;">DATE</text>
-    <text id="date" class="sans" x="32" y="178" style="font-size:20px; fill:${t.bodyText};">${escapeXML(date)}</text>
+    <text id="date" class="sans" x="32" y="178" style="font-size:20px; fill:${
+      t.bodyText
+    };">${escapeXML(date)}</text>
   </g>
 
   <!-- QR + Seal block -->
   <g transform="translate(1180,740)">
     <!-- QR -->
-    <rect x="-100" y="-100" width="160" height="160" rx="12" fill="#FFFFFF" stroke="${t.cardStroke}" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="-100" y="-100" width="160" height="160" rx="12" fill="#FFFFFF" stroke="${
+      t.cardStroke
+    }" stroke-width="2" filter="url(#shadow)"/>
     <image xlink:href="${qrDataURL}" x="-92" y="-92" width="144" height="144" />
 
     <!-- Seal -->
     <g transform="translate(120,0)">
       <circle cx="0" cy="0" r="78" fill="white" stroke="url(#goldGrad)" stroke-width="6" filter="url(#shadow)"/>
       <circle cx="0" cy="0" r="60" fill="url(#goldGrad)" opacity="0.2"/>
-      <text x="0" y="-6" text-anchor="middle" class="brand" style="font-size:16px; fill:${t.muted};">OFFICIAL SEAL</text>
-      <text x="0" y="20" text-anchor="middle" class="mono" style="font-size:14px; fill:${t.bodyText};">U W &amp; U</text>
+      <text x="0" y="-6" text-anchor="middle" class="brand" style="font-size:16px; fill:${
+        t.muted
+      };">OFFICIAL SEAL</text>
+      <text x="0" y="20" text-anchor="middle" class="mono" style="font-size:14px; fill:${
+        t.bodyText
+      };">U W &amp; U</text>
     </g>
   </g>
 
   <g transform="translate(200,820)">
-    <line x1="0" y1="0" x2="360" y2="0" stroke="${t.cardStroke}" stroke-width="2"/>
-    <text x="0" y="24" class="sans" style="font-size:16px; fill:${t.bodyText};">GehGeh</text>
+    <line x1="0" y1="0" x2="360" y2="0" stroke="${
+      t.cardStroke
+    }" stroke-width="2"/>
+    <text x="0" y="24" class="sans" style="font-size:16px; fill:${
+      t.bodyText
+    };">GehGeh</text>
     <text x="0" y="46" class="muted sans" style="font-size:14px;">Chancellor</text>
   </g>
 
   <g transform="translate(600,820)">
-    <line x1="0" y1="0" x2="360" y2="0" stroke="${t.cardStroke}" stroke-width="2"/>
-    <text x="0" y="24" class="sans" style="font-size:16px; fill:${t.bodyText};">Registrar</text>
+    <line x1="0" y1="0" x2="360" y2="0" stroke="${
+      t.cardStroke
+    }" stroke-width="2"/>
+    <text x="0" y="24" class="sans" style="font-size:16px; fill:${
+      t.bodyText
+    };">Registrar</text>
     <text x="0" y="46" class="muted sans" style="font-size:14px;">Admissions &amp; Records</text>
   </g>
 
   <g transform="translate(200,950)">
     <text class="mono" style="font-size:14px; fill:${t.muted};">
-      Certificate ID: ${escapeXML(certId)} • Verify at: ${ORIGIN.replace(/^https?:\/\//,'https://')}/verify/${encodeURIComponent(certId)}
+      Certificate ID: ${escapeXML(certId)} • Verify at: ${ORIGIN.replace(
+    /^https?:\/\//,
+    "https://"
+  )}/verify/${encodeURIComponent(certId)}
     </text>
   </g>
 </svg>`;
@@ -220,18 +254,11 @@ export async function GET(
     });
 
     if (format === "png") {
-      // Render SVG to PNG using resvg
-      const resvg = new Resvg(svg, {
-        fitTo: { mode: "width", value: 1600 },
-        background: "transparent",
-      });
-      const pngData = resvg.render().asPng();
-      return new NextResponse(Buffer.from(pngData), {
-        headers: {
-          "Content-Type": "image/png",
-          "Content-Disposition": `inline; filename="${id}.png"`,
-        },
-      });
+      // PNG generation temporarily disabled due to native binding issues
+      return NextResponse.json(
+        { error: "PNG generation temporarily unavailable. Please use SVG format." },
+        { status: 503 }
+      );
     }
 
     // Default: return SVG

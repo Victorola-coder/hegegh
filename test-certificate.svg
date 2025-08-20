@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F6E27A"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1F2937"/>
+      <stop offset="100%" stop-color="#0B1220"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <style>
+      .brand { font-family: "Georgia", "Times New Roman", serif; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
+      .serif { font-family: "Georgia", "Times New Roman", serif; }
+      .mono  { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      .muted { fill: #6B7280; }
+      .label { fill: #111827; opacity: 0.8; letter-spacing: 0.08em; text-transform: uppercase; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="1100" fill="#F9FAFB"/>
+  <rect x="40" y="40" width="1520" height="1020" fill="none" stroke="url(#goldGrad)" stroke-width="8" rx="24"/>
+  <rect x="60" y="60" width="1480" height="980" fill="none" stroke="#E5E7EB" stroke-width="2" rx="20"/>
+
+  <g opacity="0.06">
+    <circle cx="800" cy="550" r="420" fill="url(#goldGrad)"/>
+  </g>
+
+  <g transform="translate(200,160)" text-anchor="middle">
+    <g transform="translate(600,0) scale(1)">
+      <circle cx="0" cy="0" r="56" fill="white" stroke="url(#goldGrad)" stroke-width="4" filter="url(#shadow)"/>
+      <g transform="translate(0,2)">
+        <path d="M -22 -6 L 0 -30 L 22 -6 L 0 18 Z" fill="url(#goldGrad)"/>
+        <circle cx="0" cy="20" r="6" fill="url(#goldGrad)"/>
+      </g>
+    </g>
+    <text x="600" y="120" class="brand" style="font-size:54px; font-weight:700; fill:url(#goldGrad);">UNIVERSITY OF WISDOM &amp; UNDERSTANDING</text>
+    <text x="600" y="160" class="sans muted" style="font-size:18px;">"Real lessons. Real assets."</text>
+  </g>
+
+  <g transform="translate(200,240)">
+    <rect x="0" y="0" width="1200" height="58" rx="12" fill="url(#ribbonGrad)" filter="url(#shadow)"/>
+    <text x="600" y="38" text-anchor="middle" class="sans" fill="#FFFFFF" style="font-size:22px; letter-spacing:0.1em;">
+      ADMISSION BOARD • FACULTY OF LIFE MASTERY
+    </text>
+  </g>
+
+  <g transform="translate(160,390)">
+    <text class="label sans" x="640" y="0" text-anchor="middle" style="font-size:16px;">THIS CERTIFIES THAT</text>
+    <text id="studentName" class="brand" x="640" y="72" text-anchor="middle" style="font-size:72px; fill:#111827;">
+      Test Student
+    </text>
+    <line x1="260" y1="86" x2="1020" y2="86" stroke="#E5E7EB" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(160,520)">
+    <text class="label sans" x="0" y="0" style="font-size:16px;">HAS BEEN AWARDED</text>
+    <text id="certLevel" class="serif" x="0" y="52" style="font-size:40px; font-weight:700; fill:url(#goldGrad);">
+      Doctorate of Financial Wisdom
+    </text>
+
+    <text class="label sans" x="0" y="110" style="font-size:16px;">IN</text>
+    <text id="module" class="serif" x="0" y="160" style="font-size:36px; fill:#111827;">
+      Financial Wisdom 101
+    </text>
+  </g>
+
+  <g transform="translate(980,510)">
+    <rect x="0" y="0" width="420" height="200" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" filter="url(#shadow)"/>
+    <text class="label sans" x="32" y="48" style="font-size:14px;">WISDOM SCORE</text>
+    <text id="score" class="serif" x="32" y="98" style="font-size:36px; fill:#111827;">4.85 / 5.00</text>
+    <text class="label sans" x="32" y="148" style="font-size:14px;">DATE</text>
+    <text id="date" class="sans" x="32" y="178" style="font-size:20px; fill:#111827;">2025-08-20</text>
+  </g>
+
+  <!-- QR + Seal block -->
+  <g transform="translate(1180,740)">
+    <!-- QR -->
+    <rect x="-100" y="-100" width="160" height="160" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" filter="url(#shadow)"/>
+    <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAYAAACvDDbuAAAAAklEQVR4AewaftIAAAT+SURBVO3BAYocWg4EwUzR979yrQ8gLzzoYaxPRQiEA5KwUXmRhBcq35CEFyovkrBR2SRho3LBUHXQUHXQUHXQUHXQUHXQh79Iwm9QeZGEjcpG5UUSNiovVDZJeJGEjcpPSsJvUNkMVQcNVQcNVQcNVQcNVQd9eKTyDUn4SUnYqLxQ2SThN6hskvAbVL4hCS+GqoOGqoOGqoOGqoOGqoM+HKeyScI3JOEnqWySsFF5obJJwmVD1UFD1UFD1UFD1UFD1UEf/qNUNknYqGxUNknYqLxIwoskFAxVBw1VBw1VBw1VBw1VB314lITLVH5SEr5BZZOEjcpvSMJvGKoOGqoOGqoOGqoOGqoO+vAXKpclYaOyScJG5YXKJgkblU0SNiqbJGxUvkHlXzJUHTRUHTRUHTRUHTRUHWT+4DCVTRK+QeVFEjYq35CEgqHqoKHqoKHqoKHqoKHqoI/KJgnfoLJJwkblG1S+IQkblW9IwkblhcomCRuV35CEFyqboeqgoeqgoeqgoeqgoeoggbBIwkZlk4SNyiYJF6j8hiRsVDZJ2KhskrBRuWCoOmioOmioOmioOmioOkggPEjCRmWThI3KiyRsVF4k4Teo/KQk/BepbIaqg4aqg4aqg4aqg4aqg8wfLFR+QxJ+ksqLJLxQeZGEjcqLJLxQ+YYkbFQ2SdiovBiqDhqqDhqqDhqqDhqqDvrwKAkvVDZJ2Ki8SMJGZZOEFyrfkISNyoskbFQ2SXiRhG9IwjckYTNUHTRUHTRUHTRUHTRUHfRR2SRho7JJwjckYaOyUfkNSfhJSXiRhI3KJgkblX+JymaoOmioOmioOmioOmioOujDl6hskvBC5TeobJKwUblMZZOEFyrfkISNymaoOmioOmioOmioOmioOsj8wUJlk4TLVDZJeKGyScILlRdJ2KhskrBR+YYkfIPKi6HqoKHqoKHqoKHqoKHqoI/KJgnfoPKTkvANKgVJ+JckYTNUHTRUHTRUHTRUHTRUHSQQviAJL1Q2SdiovEjCRuU3JGGj8g1J2KhskrBR+UlJ2Ki8GKoOGqoOGqoOGqoOGqoOMn/wg1S+IQkblRdJ2KhskvANKt+QhH+JyiYJG5VNEjYqm6HqoKHqoKHqoKHqoKHqoA+PVH5SEjYqmyRsVF4kYaOyScJG5UUSNioblRdJ+JckYaPyYqg6aKg6aKg6aKg6aKg6SCA8SMI3qPykJGxUXiRho/INSdiobJLwQuVfkoQXKpuh6qCh6qCh6qCh6qCh6qBPEn5DEr5B5UUSNioblU0SXqi8SMJGZZOEF0n4BpVNEn7SUHXQUHXQUHXQUHXQUHXQR+WCJLxQ+UkqL5Lwk1S+QWWThBcqL5LwYqg6aKg6aKg6aKg6aKg66MNfJOE3qLxIwm9Q2SThG1Q2SXih8iIJ35CEnzRUHTRUHTRUHTRUHTRUHfThkco3JOEbVF4kYaOyScIFKi9UfpLKJgkblRdD1UFD1UFD1UFD1UFD1UEfjkvCRmWjsknCiyRsVDZJ2Kj8S5LwL0nCZqg6aKg6aKg6aKg6aKg66EP9XyrfoPIbkvAbVL5BZTNUHTRUHTRUHTRUHTRUHfThURIuSMILlU0SXqj8JJUXKj8pCS+SsFF5MVQdNFQdNFQdNFQdNFQd9OEvVC5QeZGETRI2KpskbJLwDSovkrBRuSwJm6HqoKHqoKHqoKHqoKHqoP8BABLqkZoGDeYAAAAASUVORK5CYII=" x="-92" y="-92" width="144" height="144" />
+
+    <!-- Seal -->
+    <g transform="translate(120,0)">
+      <circle cx="0" cy="0" r="78" fill="white" stroke="url(#goldGrad)" stroke-width="6" filter="url(#shadow)"/>
+      <circle cx="0" cy="0" r="60" fill="url(#goldGrad)" opacity="0.2"/>
+      <text x="0" y="-6" text-anchor="middle" class="brand" style="font-size:16px; fill:#6B7280;">OFFICIAL SEAL</text>
+      <text x="0" y="20" text-anchor="middle" class="mono" style="font-size:14px; fill:#111827;">U W &amp; U</text>
+    </g>
+  </g>
+
+  <g transform="translate(200,820)">
+    <line x1="0" y1="0" x2="360" y2="0" stroke="#E5E7EB" stroke-width="2"/>
+    <text x="0" y="24" class="sans" style="font-size:16px; fill:#111827;">GehGeh</text>
+    <text x="0" y="46" class="muted sans" style="font-size:14px;">Chancellor</text>
+  </g>
+
+  <g transform="translate(600,820)">
+    <line x1="0" y1="0" x2="360" y2="0" stroke="#E5E7EB" stroke-width="2"/>
+    <text x="0" y="24" class="sans" style="font-size:16px; fill:#111827;">Registrar</text>
+    <text x="0" y="46" class="muted sans" style="font-size:14px;">Admissions &amp; Records</text>
+  </g>
+
+  <g transform="translate(200,950)">
+    <text class="mono" style="font-size:14px; fill:#6B7280;">
+      Certificate ID: TEST123 • Verify at: https://localhost:3000/verify/TEST123
+    </text>
+  </g>
+</svg>
