@@ -5,26 +5,26 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="space-y-4">
-          <h3 className="text-lg font-bold text-gray-900">Creator</h3>
+          <h3 className="text-lg font-bold text-gray-900">Brain</h3>
           <div className="space-y-2">
             <Link
-              href="https://www.github.com/gehgeh"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.github.com/victorola-coder"
+              className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
+            >
+              VickyJay
+            </Link>
+            <Link
+              href="https://www.instagram.com/victorola.dev/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
-              Created by GehGeh
+              Follow VickyJay
             </Link>
             <Link
-              href="https://instagram.com/gehgeh?igshid=YmMyMTA2M2Y="
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
-            >
-              Follow GehGeh
-            </Link>
-            <Link
-              href="https://www.twitter.com/gehgeh"
+              href="https://www.twitter.com/heyVickyJay"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
