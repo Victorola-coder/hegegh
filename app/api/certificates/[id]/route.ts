@@ -242,10 +242,10 @@ function certificateSVG({
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resolvedParams = await params;
+    const resolvedParams = await context.params;
     const { id } = resolvedParams;
     const { searchParams } = new URL(request.url);
 

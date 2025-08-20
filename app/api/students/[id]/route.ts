@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resolvedParams = await params;
+    const resolvedParams = await context.params;
     const { id } = resolvedParams;
 
     const student = await prisma.student.findUnique({
@@ -31,10 +31,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resolvedParams = await params;
+    const resolvedParams = await context.params;
     const { id } = resolvedParams;
     const body = await request.json();
 
@@ -63,10 +63,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resolvedParams = await params;
+    const resolvedParams = await context.params;
     const { id } = resolvedParams;
 
     const student = await prisma.student.findUnique({
