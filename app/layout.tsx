@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   description:
     "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence. Enroll now and get your certificate!",
   applicationName: "University of Wisdom and Understanding",
-  authors: [{ name: "GehGeh", url: "https://twitter.com/gehgeh" }],
+  authors: [{ name: "VickyJay", url: "https://twitter.com/heyVickyJay" }],
   keywords: [
     "wisdom",
     "understanding",

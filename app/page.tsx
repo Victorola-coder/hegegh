@@ -4,7 +4,6 @@ import {
   GraduationCap,
   Users,
   Award,
-  BookOpen,
   Sparkles,
   ArrowRight,
 } from "lucide-react";
@@ -15,9 +14,9 @@ import { useEffect, useState } from "react";
 import { StudentCard } from "./components/molecule";
 
 export default function HomePage() {
-  const [students, setStudents] = useState<Student[]>([]);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState<Student[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,14 +112,14 @@ export default function HomePage() {
               </motion.button>
             </Link>
 
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-primary-700 bg-white border-2 border-primary-200 rounded-full hover:bg-primary-50 transition-all duration-300"
             >
               <BookOpen className="w-5 h-5" />
               Learn More
-            </motion.button>
+            </motion.button> */}
           </div>
         </motion.div>
 

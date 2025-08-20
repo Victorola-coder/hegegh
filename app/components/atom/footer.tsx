@@ -60,23 +60,23 @@ const Footer = () => (
           <h3 className="text-lg font-bold text-gray-900">Community</h3>
           <div className="space-y-2">
             <a
-              href="https://t.me/+your-telegram-link"
+              href="https://t.me/+-0wovPxDU2tkOTY8"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Join the Telegram
             </a>
-            <a
+            {/* <a
               href="https://discord.gg/your-discord-link"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Join the Discord
-            </a>
+            </a> */}
             <a
-              href="https://chat.whatsapp.com/your-whatsapp-link"
+              href="https://chat.whatsapp.com/ECXQpDNnD1dE8IHkeU5Nvm"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
@@ -89,9 +89,8 @@ const Footer = () => (
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-gray-900">About</h3>
           <p className="text-gray-600 text-sm leading-relaxed">
-            University of Wisdom provides comprehensive education and
-            certification programs to help you achieve your learning goals and
-            advance your career.
+            Vibes and shii, become a certified gehgeh student today, its simple,
+            fast and free, claim your name before anyone else will
           </p>
         </div>
       </div>

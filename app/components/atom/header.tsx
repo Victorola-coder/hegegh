@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky p-2 top-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
           : "bg-gray-100"
@@ -41,7 +41,7 @@ const Header = () => {
               <img
                 src="/images/logo.png"
                 alt="logo"
-                className="size-[40px] rounded-full"
+                className="size-[60px] rounded-full"
               />
             </div>
           </Link>
@@ -58,7 +58,7 @@ const Header = () => {
               </span>
             </Link>
             <a
-              href="https://www.github.com/gehgeh"
+              href="https://www.github.com/victorola-coder"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200"
@@ -67,7 +67,7 @@ const Header = () => {
               My Github
             </a>
             <a
-              href="https://chat.whatsapp.com/your-group-link"
+              href="https://chat.whatsapp.com/ECXQpDNnD1dE8IHkeU5Nvm"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200"
@@ -118,7 +118,7 @@ const Header = () => {
                   </div>
                 </Link>
                 <a
-                  href="https://www.github.com/gehgeh"
+                  href="https://www.github.com/victorola-coder"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMenu}
@@ -128,7 +128,7 @@ const Header = () => {
                   My Github
                 </a>
                 <a
-                  href="https://chat.whatsapp.com/your-group-link"
+                  href="https://chat.whatsapp.com/ECXQpDNnD1dE8IHkeU5Nvm"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMenu}

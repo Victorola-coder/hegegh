@@ -222,7 +222,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 - **Creator**: GehGeh
-- **Twitter**: [@gehgeh](https://twitter.com/gehgeh)
+- **Twitter**: [@gehgeh](https://twitter.com/heyVickyJay)
 - **Project**: [University of Wisdom and Understanding](https://university-of-wisdom.vercel.app)
 
 ---
