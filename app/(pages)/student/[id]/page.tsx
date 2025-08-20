@@ -61,12 +61,14 @@ export default function StudentPage({
         level: `${studentData.degree} of ${studentData.department}`,
         module: studentData.department,
         score: `${studentData.gpa.toFixed(2)} / 5.00`,
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split("T")[0],
         theme: "light",
-        format: "svg"
+        format: "svg",
       });
 
-      const certificateUrl = `/api/certificates/${studentData.tag}?${params.toString()}`;
+      const certificateUrl = `/api/certificates/${
+        studentData.tag
+      }?${params.toString()}`;
       setCertificateUrl(certificateUrl);
     } catch (error) {
       console.error("Error generating certificate URL:", error);
@@ -98,9 +100,9 @@ export default function StudentPage({
         level: `${student.degree} of ${student.department}`,
         module: student.department,
         score: `${student.gpa.toFixed(2)} / 5.00`,
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split("T")[0],
         theme: "light",
-        format: "png"
+        format: "png",
       });
 
       const pngUrl = `/api/certificates/${student.tag}?${params.toString()}`;

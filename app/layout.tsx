@@ -1,9 +1,8 @@
 import "./global.css";
 import { Toaster } from "sonner";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Footer, Header } from "./components/atom";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],

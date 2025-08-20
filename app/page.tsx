@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   GraduationCap,
   Users,
@@ -10,9 +9,10 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { cacheManager } from "./lib/cache";
 import { useEffect, useState } from "react";
-import StudentCard from "./components/StudentCard";
+import { StudentCard } from "./components/molecule";
 
 export default function HomePage() {
   const [students, setStudents] = useState<Student[]>([]);

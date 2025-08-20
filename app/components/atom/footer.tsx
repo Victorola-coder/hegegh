@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => (
   <footer className="bg-gradient-to-b from-gray-50 to-gray-100 border-t border-gray-200">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -5,44 +7,44 @@ const Footer = () => (
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-gray-900">Creator</h3>
           <div className="space-y-2">
-            <a
+            <Link
               href="https://www.github.com/gehgeh"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Created by GehGeh
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://instagram.com/gehgeh?igshid=YmMyMTA2M2Y="
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Follow GehGeh
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://www.twitter.com/gehgeh"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Follow On Twitter
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-gray-900">University</h3>
           <div className="space-y-2">
-            <a
+            <Link
               href="https://instagram.com/universityofwisdom?r=nametag"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
             >
               Follow On Instagram
-            </a>
+            </Link>
             <a
               href="https://www.twitter.com/wisdomuniversity"
               target="_blank"
