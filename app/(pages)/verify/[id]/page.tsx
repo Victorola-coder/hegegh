@@ -53,9 +53,7 @@ export default function VerifyPage({
       <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-dark-600 text-lg">
-            Verifying certificate...
-          </p>
+          <p className="text-dark-600 text-lg">Verifying certificate...</p>
         </div>
       </div>
     );
@@ -137,7 +135,8 @@ export default function VerifyPage({
               </h2>
 
               <p className="text-lg text-dark-600 mb-6">
-                {error || "This certificate could not be verified in our records."}
+                {error ||
+                  "This certificate could not be verified in our records."}
               </p>
 
               <div className="text-sm text-dark-500">

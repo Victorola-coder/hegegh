@@ -182,8 +182,8 @@ const AboutPage = () => {
                 not be confined to ivory towers or expensive institutions.
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Through our innovative platform, we&apos;re creating a world where
-                anyone can access the wisdom of the ages, develop their
+                Through our innovative platform, we&apos;re creating a world
+                where anyone can access the wisdom of the ages, develop their
                 understanding, and earn recognition for their journey of growth.
               </p>
 

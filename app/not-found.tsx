@@ -41,7 +41,8 @@ export default function NotFound() {
             university without leaving a forwarding address.
           </p>
           <p className="text-sm text-dark-500 italic">
-            &quot;Even the wisest among us sometimes get lost in the digital realm.&quot;
+            &quot;Even the wisest among us sometimes get lost in the digital
+            realm.&quot;
           </p>
         </motion.div>
 
