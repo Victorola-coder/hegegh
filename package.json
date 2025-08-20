@@ -1,33 +1,43 @@
 {
-  "name": "next-temp",
+  "name": "university-of-wisdom",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbo",
+    "build": "bunx prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "bunx prisma migrate dev",
+    "prisma": "bunx prisma"
   },
   "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "@types/ejs": "^3.1.5",
+    "@types/nodemailer": "^6.4.17",
+    "@upstash/redis": "^1.34.8",
     "aos": "^2.3.4",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
+    "ejs": "^3.1.10",
     "framer-motion": "^11.11.9",
     "lucide-react": "^0.471.1",
     "next": "^15.1.4",
+    "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sonner": "^1.7.2",
+    "react-intersection-observer": "^9.16.0",
+    "sonner": "^2.0.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "15.0.0"
+    "eslint-config-next": "15.0.0",
+    "postcss": "^8",
+    "prisma": "^6.6.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

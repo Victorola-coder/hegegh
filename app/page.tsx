@@ -1,438 +1,223 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Button,
-  Card,
-  Image,
-  Input,
-  Modal,
-  Otp,
-  Select,
-  Skeleton,
-  Tabs,
-  TextArea,
-  Toggle,
-} from "./components/ui";
 import { motion } from "framer-motion";
-import { EyeIcon } from "./components/svgs";
-import { toast } from "sonner";
-import { Animation, Glow, Loader } from "./components/global";
+import { GraduationCap, Users, Award, BookOpen, Sparkles, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toggleState, setToggleState] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [textAreaValue, setTextAreaValue] = useState("");
+interface Student {
+  id: string;
+  name: string;
+  department: string;
+  gpa: number;
+  degree: string;
+  tag: string;
+}
 
-  const tabs = [
-    { label: "Overview", value: "overview" },
-    { label: "Components", value: "components" },
-    { label: "Settings", value: "settings" },
-  ];
+export default function HomePage() {
+  const [students, setStudents] = useState<Student[]>([]);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const selectOptions = [
-    { label: "Option 1", value: "1" },
-    { label: "Option 2", value: "2" },
-    { label: "Option 3", value: "3" },
-  ];
+  useEffect(() => {
+    fetch("/api/students")
+      .then((res) => res.json())
+      .then((data) => {
+        setStudents(data[0] || []);
+        setCount(data[1] || 0);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const totalCount = new Intl.NumberFormat("en-US").format(
+    count == 0 ? 0 : 15420 + count
+  );
 
   return (
-    <Animation>
-      <div className="min-h-screen bg-[#0f0f0f] p-8">
-        <div className="max-w-6xl mx-auto space-y-12">
-          {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+      {/* Hero Section */}
+      <section className="relative flex flex-col items-center justify-center min-h-screen px-4 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-transparent to-secondary-100/20" />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-4xl mx-auto"
+        >
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm font-medium text-primary-700 bg-primary-100 rounded-full"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Championed by GehGeh</span>
+          </motion.div>
 
-          <div className="text-center space-y-6 mb-16">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="gradient-text">University of Wisdom</span>
+            <br />
+            <span className="text-dark-800">& Understanding</span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-dark-600 mb-8 max-w-2xl mx-auto">
+            Join thousands of young people gaining wisdom, knowledge, and understanding about money, relationships, and life.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/enroll">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <GraduationCap className="w-5 h-5" />
+                Get Your Certificate
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </Link>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-primary-700 bg-white border-2 border-primary-200 rounded-full hover:bg-primary-50 transition-all duration-300"
             >
-              <h1 className="text-5xl font-bold text-white font-geistSans">
-                UI Components
-              </h1>
-              <p className="text-[#FFFFFF80] mt-4 max-w-2xl mx-auto">
-                A modern, accessible, and fully-featured component library built
-                with Next.js, Tailwind CSS, and TypeScript
-              </p>
-            </motion.div>
-
-            <div className="flex gap-4 justify-center">
-              <Button
-                variant="primary"
-                onClick={() => toast.success("Copied to clipboard!")}
-              >
-                Get Started
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  window.open(
-                    "https://github.com/victorola-coder/next-template"
-                  )
-                }
-              >
-                View on GitHub
-              </Button>
-            </div>
+              <BookOpen className="w-5 h-5" />
+              Learn More
+            </motion.button>
           </div>
+        </motion.div>
 
-          {/* Tabs Navigation */}
-          <Tabs
-            tabs={tabs}
-            defaultValue="components"
-            className="justify-center"
-          />
+        {/* Floating elements */}
+        <motion.div
+          animate={{ y: [-10, 10, -10] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 left-10 text-primary-300 opacity-20"
+        >
+          <Award className="w-16 h-16" />
+        </motion.div>
+        
+        <motion.div
+          animate={{ y: [10, -10, 10] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-32 right-10 text-secondary-300 opacity-20"
+        >
+          <Users className="w-12 h-12" />
+        </motion.div>
+      </section>
 
-          {/* Components Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Buttons Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">Buttons</h2>
-              <div className="flex flex-row flex-wrap gap-4">
-                <Button variant="default">Default Button</Button>
-                <Button variant="primary">Primary Button</Button>
-                <Button variant="secondary">Secondary Button</Button>
-                <Button variant="danger">Danger Button</Button>
-                <Button variant="google">Google Button</Button>
-                <Button loading>Loading Button</Button>
-              </div>
-            </Glow>
-            {/* Loading States */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">Loaders</h2>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="flex flex-col items-center gap-2">
-                  <Loader size="small" />
-                  <span className="text-sm text-[#FFFFFF80]">Small</span>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <Loader size="medium" />
-                  <span className="text-sm text-[#FFFFFF80]">Medium</span>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <Loader size="large" />
-                  <span className="text-sm text-[#FFFFFF80]">Large</span>
-                </div>
-              </div>
-            </Glow>
-
-            {/* Icons & SVGs */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Icons & SVGs
-              </h2>
-              <div className="grid grid-cols-4 gap-4">
-                <div className="flex flex-col items-center gap-2">
-                  <EyeIcon className="w-6 h-6" fill="white" />
-                  <span className="text-sm text-[#FFFFFF80]">Eye</span>
-                </div>
-                {/* Add more icons here */}
-              </div>
-            </Glow>
-            {/* Form Inputs Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">Inputs</h2>
-              <Input
-                placeholder="Regular Input"
-                value={inputValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setInputValue(e.target.value)
-                }
-              />
-              <Input
-                type="password"
-                placeholder="Password Input"
-                value={inputValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setInputValue(e.target.value)
-                }
-              />
-              <TextArea
-                name="textarea"
-                value={textAreaValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setTextAreaValue(e.target.value)
-                }
-                placeholder="Text Area Input"
-              />
-            </Glow>
-
-            {/* Form Validation */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Form Validation
-              </h2>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  toast.success("Form submitted!");
-                }}
-                className="space-y-4"
-              >
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  error="Please enter a valid email"
-                />
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  error="Password is required"
-                />
-                <Button type="submit" className="w-full">
-                  Submit
-                </Button>
-              </form>
-            </Glow>
-
-            {/* Toggle & Select Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Interactive Components
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-white">Toggle Component</span>
-                  <Toggle checked={toggleState} onChange={setToggleState} />
-                </div>
-                <Select
-                  options={selectOptions}
-                  placeholder="Select an option"
-                  onChange={(value) => console.log(value)}
-                />
-              </div>
-            </Glow>
-            {/* Animations */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Animations
-              </h2>
-              <div className="space-y-4">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-[#283142] p-4 rounded-lg text-white text-center"
-                >
-                  Hover & Tap Animation
-                </motion.div>
-                <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                  className="bg-[#283142] p-4 rounded-lg text-white text-center"
-                >
-                  Floating Animation
-                </motion.div>
-              </div>
-            </Glow>
-            {/* Color Palette */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Color Palette
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="h-12 rounded-lg bg-primary" />
-                  <span className="text-sm text-[#FFFFFF80]">Primary</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-12 rounded-lg bg-[#283142]" />
-                  <span className="text-sm text-[#FFFFFF80]">Secondary</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-12 rounded-lg bg-[#6366F1]" />
-                  <span className="text-sm text-[#FFFFFF80]">Accent</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-12 rounded-lg bg-[#DC2626]" />
-                  <span className="text-sm text-[#FFFFFF80]">Danger</span>
-                </div>
-              </div>
-            </Glow>
-
-            {/* Card & Image Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Display Components
-              </h2>
-              <Card>
-                <div className="bg-[#283142] p-4 rounded-lg">
-                  <Image
-                    src="/images/logo.svg"
-                    alt="Placeholder"
-                    width={300}
-                    height={200}
-                    className="rounded-lg"
-                  />
-                </div>
-              </Card>
-            </Glow>
-
-            {/* Loading States Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Loading States
-              </h2>
-              <div className="space-y-4">
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-3/4" />
-                <Skeleton className="h-12 w-1/2" />
-              </div>
-            </Glow>
-
-            {/* Modal & OTP Section */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Advanced Components
-              </h2>
-              <div className="space-y-4">
-                <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
-                <div className="mt-8">
-                  <h3 className="text-white mb-4">OTP Input</h3>
-                  <Otp />
-                </div>
-              </div>
-            </Glow>
-
-            {/* Toast Notifications */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Toast Notifications
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                <Button
-                  variant="default"
-                  onClick={() => toast.success("Success message")}
-                >
-                  Success Toast
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => toast.error("Error message")}
-                >
-                  Error Toast
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => toast.info("Info message")}
-                >
-                  Info Toast
-                </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() => toast.warning("Warning message")}
-                >
-                  Warning Toast
-                </Button>
-              </div>
-            </Glow>
-
-            {/* Typography */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Typography
-              </h2>
-              <div className="space-y-6">
-                <div>
-                  <h1 className="text-4xl font-geistSans font-bold text-white">
-                    Heading 1
-                  </h1>
-                  <p className="text-[#FFFFFF80] text-sm">
-                    Font: Geist Sans Bold - 36px
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-3xl font-geistSans font-semibold text-white">
-                    Heading 2
-                  </h2>
-                  <p className="text-[#FFFFFF80] text-sm">
-                    Font: Geist Sans Semibold - 30px
-                  </p>
-                </div>
-                <div>
-                  <p className="text-base font-geistSans text-white">
-                    Regular paragraph text with Geist Sans
-                  </p>
-                  <p className="text-[#FFFFFF80] text-sm">
-                    Font: Geist Sans Regular - 16px
-                  </p>
-                </div>
-                <div>
-                  <p className="font-geistMono text-white">
-                    Monospace text with Geist Mono
-                  </p>
-                  <p className="text-[#FFFFFF80] text-sm">
-                    Font: Geist Mono - 16px
-                  </p>
-                </div>
-              </div>
-            </Glow>
-
-            {/* Gradients */}
-            <Glow className="p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Gradients
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="h-20 rounded-lg bg-gradient-to-r from-primary to-[#6366F1]" />
-                  <span className="text-sm text-[#FFFFFF80]">
-                    Primary Gradient
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-20 rounded-lg bg-gradient-to-r from-[#DC2626] to-[#EA580C]" />
-                  <span className="text-sm text-[#FFFFFF80]">
-                    Danger Gradient
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-20 rounded-lg bg-gradient-to-r from-[#283142] to-[#1A202B]" />
-                  <span className="text-sm text-[#FFFFFF80]">
-                    Background Gradient
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-20 rounded-lg bg-gradient-to-r from-[#059669] to-[#10B981]" />
-                  <span className="text-sm text-[#FFFFFF80]">
-                    Success Gradient
-                  </span>
-                </div>
-              </div>
-            </Glow>
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-primary-600 mb-2">{totalCount}+</div>
+              <div className="text-dark-600">Wisdom Seekers</div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-secondary-600 mb-2">25+</div>
+              <div className="text-dark-600">Wisdom Modules</div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-accent-600 mb-2">100%</div>
+              <div className="text-dark-600">Street Intelligence</div>
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        {/* Modal */}
-        <Modal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          title="Modal Example"
-        >
-          <div className="space-y-4">
-            <p className="text-white">
-              This is an example modal that showcases the Modal component.
+      {/* Recent Graduates */}
+      <section className="py-16 bg-gradient-to-br from-dark-50 to-dark-100">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-4">
+              Recent Wisdom Graduates
+            </h2>
+            <p className="text-dark-600 max-w-2xl mx-auto">
+              Join the community of wise individuals who have gained certificates in life skills, financial wisdom, and street intelligence.
             </p>
-            <Button
-              variant="primary"
-              onClick={() => setIsModalOpen(false)}
-              className="w-full"
-            >
-              Close Modal
-            </Button>
-          </div>
-        </Modal>
-      </div>
-      <footer className="mt-16 text-center text-[#FFFFFF80]">
-        <p>Built with Next.js, Tailwind CSS, and TypeScript</p>
-        <p className="mt-2">© {new Date().getFullYear()} Victorola</p>
-      </footer>
-    </Animation>
+          </motion.div>
+
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+              <p className="mt-4 text-dark-600">Loading wisdom seekers...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {students.map((student, index) => (
+                <motion.div
+                  key={student.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-dark-100"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      {student.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-dark-800 capitalize">{student.name}</h3>
+                      <p className="text-sm text-dark-600">{student.degree}</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-primary-600">{student.gpa}</div>
+                      <div className="text-xs text-dark-500">Wisdom Score</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-dark-700 italic">{student.department}</p>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-12"
+          >
+            <Link href="/enroll">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <GraduationCap className="w-5 h-5" />
+                Join the Wisdom Movement
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 }
