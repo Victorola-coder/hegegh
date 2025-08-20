@@ -81,6 +81,9 @@ const selectDepartment = (choice: string, secondChoice: string): string => {
 
 export async function GET() {
   try {
+    // Test database connection first
+    await prisma.$connect();
+
     const [students, count] = await Promise.all([
       prisma.student.findMany({
         select: {
@@ -101,9 +104,14 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching students:", error);
     return NextResponse.json(
-      { error: "Failed to fetch students" },
+      {
+        error: "Failed to fetch students",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -135,7 +143,7 @@ export async function POST(request: NextRequest) {
     const student = await prisma.student.create({
       data: {
         tag,
-        name: name.toLowerCase(),
+        name: name.trim(),
         department,
         gpa,
         degree,
@@ -153,7 +161,10 @@ export async function POST(request: NextRequest) {
 
     console.error("Error creating student:", error);
     return NextResponse.json(
-      { error: "Failed to create student" },
+      {
+        error: "Failed to create student",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

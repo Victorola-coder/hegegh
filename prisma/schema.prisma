@@ -20,13 +20,3 @@ model Student {
 
   @@map("students")
 }
-
-model Waitlist {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("waitlist")
-}
