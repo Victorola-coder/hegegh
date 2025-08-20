@@ -1,16 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  GraduationCap,
-  Users,
-  Award,
-  BookOpen,
-  Sparkles,
-  ArrowRight,
-} from "lucide-react";
+import { GraduationCap, Users, Award, BookOpen, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import StudentCard from "./components/StudentCard";
 
 interface Student {
   id: string;
@@ -40,7 +34,7 @@ export default function HomePage() {
   }, []);
 
   const totalCount = new Intl.NumberFormat("en-US").format(
-    count == 0 ? 0 : 15420 + count
+    count == 0 ? 0 : 141128 + count
   );
 
   return (
@@ -48,7 +42,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-4 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-transparent to-secondary-100/20" />
-
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,8 +66,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-dark-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of young people gaining wisdom, knowledge, and
-            understanding about money, relationships, and life.
+            Join thousands of young people gaining wisdom, knowledge, and understanding about money, relationships, and life.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -88,7 +81,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
-
+            
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -108,7 +101,7 @@ export default function HomePage() {
         >
           <Award className="w-16 h-16" />
         </motion.div>
-
+        
         <motion.div
           animate={{ y: [10, -10, 10] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -128,117 +121,73 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-primary-600 mb-2">
-                {totalCount}+
-              </div>
+              <div className="text-4xl font-bold text-primary-600 mb-2">{totalCount}+</div>
               <div className="text-dark-600">Wisdom Seekers</div>
             </motion.div>
-
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-secondary-600 mb-2">
-                25+
-              </div>
+              <div className="text-4xl font-bold text-secondary-600 mb-2">25+</div>
               <div className="text-dark-600">Wisdom Modules</div>
             </motion.div>
-
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-accent-600 mb-2">
-                100%
-              </div>
+              <div className="text-4xl font-bold text-accent-600 mb-2">100%</div>
               <div className="text-dark-600">Street Intelligence</div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Recent Graduates */}
-      <section className="py-16 bg-gradient-to-br from-dark-50 to-dark-100">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-4">
-              Recent Wisdom Graduates
-            </h2>
-            <p className="text-dark-600 max-w-2xl mx-auto">
-              Join the community of wise individuals who have gained
-              certificates in life skills, financial wisdom, and street
-              intelligence.
-            </p>
-          </motion.div>
+      {/* Current Students Section */}
+      <section className="flex flex-col items-center w-full p-4 py-6 bg-gray-200">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <h2 className="text-2xl font-bold text-center text-dark-800 mb-4">
+            Current Holders of Wisdom
+          </h2>
+        </motion.div>
 
-          {loading ? (
-            <div className="text-center py-12">
-              <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-              <p className="mt-4 text-dark-600">Loading wisdom seekers...</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {students.map((student, index) => (
-                <motion.div
-                  key={student.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-dark-100"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                      {student.name.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-dark-800 capitalize">
-                        {student.name}
-                      </h3>
-                      <p className="text-sm text-dark-600">{student.degree}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-primary-600">
-                        {student.gpa}
-                      </div>
-                      <div className="text-xs text-dark-500">Wisdom Score</div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-dark-700 italic">
-                    {student.department}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-12"
+        {loading ? (
+          <div className="text-center my-12">
+            <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-4 text-dark-600">Loading wisdom seekers...</p>
+          </div>
+        ) : (
+          <div className="flex flex-col items-stretch w-full mb-8 sm:w-3/4 sm:grid-cols-2 sm:grid">
+            {students.map((student) => (
+              <StudentCard key={student.id} student={student} />
+            ))}
+          </div>
+        )}
+        
+        <p className="mb-12 text-dark-600 font-medium">
+          And {totalCount} other wisdom seekers
+        </p>
+        
+        <Link href="/enroll">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <Link href="/enroll">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <GraduationCap className="w-5 h-5" />
-                Join the Wisdom Movement
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
+            <GraduationCap className="w-5 h-5" />
+            Enroll here
+          </motion.button>
+        </Link>
       </section>
     </div>
   );

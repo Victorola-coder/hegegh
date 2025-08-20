@@ -134,13 +134,13 @@ export default function StudentPage({ params }: { params: { id: string } }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <Link
+          {/* <Link
             href="/"
             className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
-          </Link>
+          </Link> */}
 
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-primary-700 bg-primary-100 rounded-full">
             <Sparkles className="w-4 h-4" />

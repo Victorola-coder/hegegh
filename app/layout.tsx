@@ -2,6 +2,8 @@ import "./global.css";
 import { Toaster } from "sonner";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -105,7 +107,11 @@ export default function RootLayout({
         className={`${plusJakartaSans.className} ${inter.variable} antialiased`}
       >
         <Toaster richColors />
-        {children}
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
