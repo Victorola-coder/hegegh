@@ -150,7 +150,7 @@ export default function EnrollPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your full name"
-                  className="w-full px-4 py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  className="w-full outline-none px-4 py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -163,7 +163,7 @@ export default function EnrollPage() {
                 <select
                   value={selectedCourse}
                   onChange={(e) => handleSetFirstChoice(e.target.value)}
-                  className="w-full px-4 py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 outline-none py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 >
                   {wisdomModules.map((module) => (
                     <option key={module} value={module}>
@@ -181,7 +181,7 @@ export default function EnrollPage() {
                 <select
                   value={selectedSecondCourse}
                   onChange={(e) => setSelectedSecondCourse(e.target.value)}
-                  className="w-full px-4 py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 outline-none py-3 border border-dark-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 >
                   {secondCourses.map((module) => (
                     <option key={module} value={module}>

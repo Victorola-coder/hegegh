@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./global.css";
 import { Toaster } from "sonner";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";

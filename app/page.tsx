@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Users, Award, BookOpen, Sparkles, ArrowRight } from "lucide-react";
+import {
+  GraduationCap,
+  Users,
+  Award,
+  BookOpen,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -41,7 +48,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-4 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-transparent to-secondary-100/20" />
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +72,8 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-dark-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of young people gaining wisdom, knowledge, and understanding about money, relationships, and life.
+            Join thousands of young people gaining wisdom, knowledge, and
+            understanding about money, relationships, and life.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -80,7 +88,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -100,7 +108,7 @@ export default function HomePage() {
         >
           <Award className="w-16 h-16" />
         </motion.div>
-        
+
         <motion.div
           animate={{ y: [10, -10, 10] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -120,27 +128,33 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-primary-600 mb-2">{totalCount}+</div>
+              <div className="text-4xl font-bold text-primary-600 mb-2">
+                {totalCount}+
+              </div>
               <div className="text-dark-600">Wisdom Seekers</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-secondary-600 mb-2">25+</div>
+              <div className="text-4xl font-bold text-secondary-600 mb-2">
+                25+
+              </div>
               <div className="text-dark-600">Wisdom Modules</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center"
             >
-              <div className="text-4xl font-bold text-accent-600 mb-2">100%</div>
+              <div className="text-4xl font-bold text-accent-600 mb-2">
+                100%
+              </div>
               <div className="text-dark-600">Street Intelligence</div>
             </motion.div>
           </div>
@@ -160,7 +174,9 @@ export default function HomePage() {
               Recent Wisdom Graduates
             </h2>
             <p className="text-dark-600 max-w-2xl mx-auto">
-              Join the community of wise individuals who have gained certificates in life skills, financial wisdom, and street intelligence.
+              Join the community of wise individuals who have gained
+              certificates in life skills, financial wisdom, and street
+              intelligence.
             </p>
           </motion.div>
 
@@ -184,15 +200,21 @@ export default function HomePage() {
                       {student.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-dark-800 capitalize">{student.name}</h3>
+                      <h3 className="font-semibold text-dark-800 capitalize">
+                        {student.name}
+                      </h3>
                       <p className="text-sm text-dark-600">{student.degree}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-bold text-primary-600">{student.gpa}</div>
+                      <div className="text-lg font-bold text-primary-600">
+                        {student.gpa}
+                      </div>
                       <div className="text-xs text-dark-500">Wisdom Score</div>
                     </div>
                   </div>
-                  <p className="text-sm text-dark-700 italic">{student.department}</p>
+                  <p className="text-sm text-dark-700 italic">
+                    {student.department}
+                  </p>
                 </motion.div>
               ))}
             </div>
