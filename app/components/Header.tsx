@@ -32,12 +32,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" onClick={closeMenu}>
             <div className="cursor-pointer flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              {/* <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
                 <GraduationCap className="w-6 h-6 text-white" />
               </div>
               <span className="font-bold text-xl text-gray-900 hidden sm:block group-hover:text-primary-600 transition-colors">
                 UOW
-              </span>
+              </span> */}
+              <img src="/images/logo.png" alt="logo" className="w-10 h-10" />
             </div>
           </Link>
 

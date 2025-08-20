@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import {
   GraduationCap,
   Download,
@@ -23,20 +23,30 @@ interface Student {
   certificate?: string;
 }
 
-export default function StudentPage({ params }: { params: { id: string } }) {
+export default function StudentPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = use(params);
   const [student, setStudent] = useState<Student | null>(null);
   const [loading, setLoading] = useState(true);
   const [isValidID, setIsValidID] = useState(true);
+  const [certificateUrl, setCertificateUrl] = useState<string | null>(null);
+  const [generatingCertificate, setGeneratingCertificate] = useState(false);
 
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await fetch(`/api/students/${params.id}`);
+        const response = await fetch(`/api/students/${resolvedParams.id}`);
 
         if (response.ok) {
           const data = await response.json();
           setStudent(data);
           setIsValidID(true);
+
+          // Generate certificate URL
+          await generateCertificateUrl(data);
         } else {
           setIsValidID(false);
         }
@@ -49,11 +59,69 @@ export default function StudentPage({ params }: { params: { id: string } }) {
     };
 
     fetchStudent();
-  }, [params.id]);
+  }, [resolvedParams.id]);
+
+  const generateCertificateUrl = async (studentData: Student) => {
+    try {
+      setGeneratingCertificate(true);
+
+      // Create certificate URL with query parameters
+      const params = new URLSearchParams({
+        name: studentData.name,
+        level: `${studentData.degree} of ${studentData.department}`,
+        module: studentData.department,
+        score: `${studentData.gpa.toFixed(2)} / 5.00`,
+        date: new Date().toISOString().split('T')[0],
+        theme: "light",
+        format: "svg"
+      });
+
+      const certificateUrl = `/api/certificates/${studentData.tag}?${params.toString()}`;
+      setCertificateUrl(certificateUrl);
+    } catch (error) {
+      console.error("Error generating certificate URL:", error);
+      toast.error("Error generating certificate");
+    } finally {
+      setGeneratingCertificate(false);
+    }
+  };
 
   const handleDownload = () => {
-    // For now, we'll just show a toast since we don't have certificate generation yet
-    toast.success("Certificate download feature coming soon!");
+    if (certificateUrl) {
+      // For SVG, we can download directly
+      const link = document.createElement("a");
+      link.href = certificateUrl;
+      link.download = `${student?.name}-wisdom-certificate.svg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Certificate downloaded successfully!");
+    } else {
+      toast.error("Certificate not ready yet");
+    }
+  };
+
+  const handleDownloadPNG = () => {
+    if (student) {
+      const params = new URLSearchParams({
+        name: student.name,
+        level: `${student.degree} of ${student.department}`,
+        module: student.department,
+        score: `${student.gpa.toFixed(2)} / 5.00`,
+        date: new Date().toISOString().split('T')[0],
+        theme: "light",
+        format: "png"
+      });
+
+      const pngUrl = `/api/certificates/${student.tag}?${params.toString()}`;
+      const link = document.createElement("a");
+      link.href = pngUrl;
+      link.download = `${student.name}-wisdom-certificate.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("PNG certificate downloaded successfully!");
+    }
   };
 
   const handleShare = (platform: string) => {
@@ -126,7 +194,7 @@ export default function StudentPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -134,14 +202,6 @@ export default function StudentPage({ params }: { params: { id: string } }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          {/* <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link> */}
-
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-primary-700 bg-primary-100 rounded-full">
             <Sparkles className="w-4 h-4" />
             <span>Championed by GehGeh</span>
@@ -163,30 +223,45 @@ export default function StudentPage({ params }: { params: { id: string } }) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-white rounded-2xl p-8 shadow-xl border border-dark-100 mb-8"
         >
-          <div className="text-center">
-            <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <GraduationCap className="w-12 h-12 text-white" />
+          {generatingCertificate ? (
+            <div className="text-center py-12">
+              <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-dark-600">Generating your certificate...</p>
             </div>
-
-            <h2 className="text-3xl font-bold text-dark-800 mb-2 capitalize">
-              {student.name}
-            </h2>
-
-            <p className="text-xl text-primary-600 font-semibold mb-2">
-              {student.degree} Degree
-            </p>
-
-            <p className="text-lg text-dark-700 mb-4 italic">
-              {student.department}
-            </p>
-
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-full">
-              <Award className="w-5 h-5 text-primary-600" />
-              <span className="text-lg font-bold text-primary-600">
-                Wisdom Score: {student.gpa}
-              </span>
+          ) : certificateUrl ? (
+            <div className="text-center">
+              <img
+                src={certificateUrl}
+                alt="Wisdom Certificate"
+                className="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
+              />
             </div>
-          </div>
+          ) : (
+            <div className="text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <GraduationCap className="w-12 h-12 text-white" />
+              </div>
+
+              <h2 className="text-3xl font-bold text-dark-800 mb-2 capitalize">
+                {student.name}
+              </h2>
+
+              <p className="text-xl text-primary-600 font-semibold mb-2">
+                {student.degree} Degree
+              </p>
+
+              <p className="text-lg text-dark-700 mb-4 italic">
+                {student.department}
+              </p>
+
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-full">
+                <Award className="w-5 h-5 text-primary-600" />
+                <span className="text-lg font-bold text-primary-600">
+                  Wisdom Score: {student.gpa}
+                </span>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {/* Action Buttons */}
@@ -194,43 +269,55 @@ export default function StudentPage({ params }: { params: { id: string } }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleDownload}
-            className="inline-flex items-center justify-center gap-2 px-6 py-4 text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <Download className="w-5 h-5" />
-            Download Certificate
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => handleShare("twitter")}
-            className="inline-flex items-center justify-center gap-2 px-6 py-4 text-white bg-blue-600 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <Share2 className="w-5 h-5" />
-            Share on Twitter
-          </motion.button>
-        </motion.div>
-
-        {/* Social Sharing Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-6"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleShare("facebook")}
-            className="inline-flex items-center justify-center gap-2 px-4 py-3 text-white bg-blue-700 rounded-lg hover:bg-blue-800 transition-all duration-300"
+            onClick={handleDownload}
+            disabled={!certificateUrl || generatingCertificate}
+            className="inline-flex items-center gap-2 px-8 py-4 text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Share2 className="w-4 h-4" />
+            <Download className="w-5 h-5" />
+            Download SVG
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleDownloadPNG}
+            disabled={!student || generatingCertificate}
+            className="inline-flex items-center gap-2 px-8 py-4 text-white bg-gradient-to-r from-secondary-600 to-secondary-700 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Download className="w-5 h-5" />
+            Download PNG
+          </motion.button>
+        </motion.div>
+
+        {/* Social Sharing */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex gap-2 justify-center mb-8"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleShare("twitter")}
+            className="inline-flex items-center gap-2 px-6 py-4 text-white bg-blue-500 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <Share2 className="w-5 h-5" />
+            Twitter
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleShare("facebook")}
+            className="inline-flex items-center gap-2 px-6 py-4 text-white bg-blue-600 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <Share2 className="w-5 h-5" />
             Facebook
           </motion.button>
 
@@ -238,38 +325,30 @@ export default function StudentPage({ params }: { params: { id: string } }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleShare("whatsapp")}
-            className="inline-flex items-center justify-center gap-2 px-4 py-3 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-4 text-white bg-green-500 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <Share2 className="w-4 h-4" />
+            <Share2 className="w-5 h-5" />
             WhatsApp
           </motion.button>
-
-          <Link href="/enroll">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-white bg-gradient-to-r from-secondary-600 to-secondary-700 rounded-lg hover:from-secondary-700 hover:to-secondary-800 transition-all duration-300"
-            >
-              <GraduationCap className="w-4 h-4" />
-              Enroll Friends
-            </motion.button>
-          </Link>
         </motion.div>
 
-        {/* Footer Message */}
+        {/* Back to Home */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-12"
+          className="text-center"
         >
-          <p className="text-dark-600 mb-4">
-            "Wisdom is not just about knowledge, but about understanding how to
-            apply it in life."
-          </p>
-          <p className="text-sm text-dark-500">
-            - GehGeh, University of Wisdom and Understanding
-          </p>
+          <Link href="/">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-6 py-3 text-primary-600 hover:text-primary-700 font-semibold"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </div>
