@@ -224,7 +224,7 @@ export default function EnrollPage() {
             <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-6 border border-primary-100">
               <BookOpen className="w-8 h-8 text-primary-600 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-dark-800 mb-2">
-                What You'll Get
+                What You&apos;ll Get
               </h3>
               <p className="text-dark-600">
                 A personalized certificate with your wisdom score, degree level,

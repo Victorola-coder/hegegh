@@ -167,7 +167,7 @@ export default function StudentPage({
             Student Not Found
           </h2>
           <p className="text-dark-600 mb-6">
-            This wisdom seeker doesn't exist in our records.
+            This wisdom seeker doesn&apos;t exist in our records.
           </p>
           <Link href="/enroll">
             <motion.button

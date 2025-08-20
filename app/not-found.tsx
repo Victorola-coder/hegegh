@@ -37,11 +37,11 @@ export default function NotFound() {
             Oops! Wisdom Not Found 😢
           </h2>
           <p className="text-lg text-dark-600 max-w-md mx-auto mb-6">
-            The page you're looking for seems to have graduated from our
+            The page you&apos;re looking for seems to have graduated from our
             university without leaving a forwarding address.
           </p>
           <p className="text-sm text-dark-500 italic">
-            "Even the wisest among us sometimes get lost in the digital realm."
+            &quot;Even the wisest among us sometimes get lost in the digital realm.&quot;
           </p>
         </motion.div>
 
