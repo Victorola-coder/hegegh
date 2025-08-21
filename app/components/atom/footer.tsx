@@ -38,7 +38,7 @@ const Footer = () => (
           <h3 className="text-lg font-bold text-gray-900">University</h3>
           <div className="space-y-2">
             <Link
-              href="https://instagram.com/universityofwisdom?r=nametag"
+              href="https://www.instagram.com/victorola.dev/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
@@ -46,7 +46,7 @@ const Footer = () => (
               Follow On Instagram
             </Link>
             <a
-              href="https://www.twitter.com/wisdomuniversity"
+              href="https://www.twitter.com/heyVickyJay"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary-600 hover:text-primary-800 font-medium transition-colors duration-200"
