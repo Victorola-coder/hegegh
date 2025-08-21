@@ -4,6 +4,10 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Footer, Header } from "./components/atom";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import {
+  OrganizationStructuredData,
+  WebSiteStructuredData,
+} from "./components/global";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -75,7 +79,8 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://uow.victorola.dev",
     title: "University of Wisdom and Understanding - Get Your Certificate",
-    description: "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence. Enroll now and get your certificate!",
+    description:
+      "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence. Enroll now and get your certificate!",
     siteName: "University of Wisdom and Understanding",
     locale: "en_US",
     images: [
@@ -120,6 +125,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <OrganizationStructuredData />
+        <WebSiteStructuredData />
+      </head>
       <body
         className={`${plusJakartaSans.className} ${inter.variable} antialiased`}
       >
