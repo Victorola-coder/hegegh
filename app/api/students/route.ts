@@ -2,7 +2,14 @@ import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// Prisma client singleton
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // Generate random ID
 const generateRandomId = (): string => {
@@ -91,9 +98,6 @@ const selectDepartment = (choice: string, secondChoice: string): string => {
 
 export async function GET() {
   try {
-    // Test database connection first
-    await prisma.$connect();
-
     const students = await prisma.student.findMany({
       select: {
         id: true,
@@ -143,8 +147,6 @@ export async function GET() {
       },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
