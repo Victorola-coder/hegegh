@@ -2,18 +2,23 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "long sitename",
-    short_name: "sitename",
-    description: "sitename description",
+    name: "University of Wisdom and Understanding",
+    short_name: "UoW",
+    description: "Get certified in life skills, financial wisdom, and street intelligence",
     start_url: "/",
     display: "standalone",
-    background_color: "#fff",
-    theme_color: "#fff",
+    background_color: "#ffffff",
+    theme_color: "#6366f1",
     icons: [
       {
-        src: "/favicon.ico",
+        src: "/favicon.png",
         sizes: "any",
-        type: "image/x-icon",
+        type: "image/png",
+      },
+      {
+        src: "/images/logo.png",
+        sizes: "192x192",
+        type: "image/png",
       },
     ],
   };

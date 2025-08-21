@@ -7,18 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/"],
-        disallow: [],
-      },
-      {
-        userAgent: "Googlebot",
-        allow: ["/"],
-        disallow: "/private/",
-      },
-      {
-        userAgent: ["Applebot", "Bingbot"],
-        disallow: ["/"],
+        disallow: ["/api/", "/private/"],
       },
     ],
-    sitemap: "https://sitename.host/sitemap.xml",
+    sitemap: "https://uow.victorola.dev/sitemap.xml",
   };
 }

@@ -22,9 +22,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://university-of-wisdom.vercel.app"),
+  metadataBase: new URL("https://uow.victorola.dev"),
   icons: {
     icon: "/favicon.png",
+    apple: "/favicon.png",
   },
   title: "University of Wisdom and Understanding - Get Your Certificate",
   description:
@@ -49,6 +50,11 @@ export const metadata: Metadata = {
     "discipline",
     "assets",
     "generational wealth",
+    "online education",
+    "certificate program",
+    "life coaching",
+    "financial literacy",
+    "personal development",
   ],
   creator: "GehGeh",
   publisher: "University of Wisdom and Understanding",
@@ -57,16 +63,24 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     type: "website",
-    url: "https://university-of-wisdom.vercel.app",
+    url: "https://uow.victorola.dev",
     title: "University of Wisdom and Understanding - Get Your Certificate",
+    description: "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence. Enroll now and get your certificate!",
     siteName: "University of Wisdom and Understanding",
     locale: "en_US",
     images: [
       {
-        url: "https://university-of-wisdom.vercel.app/og-image.png",
+        url: "https://uow.victorola.dev/images/logo.png",
         width: 1200,
         height: 630,
         alt: "University of Wisdom and Understanding",
@@ -74,13 +88,13 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    site: "university-of-wisdom",
-    creator: "gehgeh",
+    site: "@heyVickyJay",
+    creator: "@heyVickyJay",
     title: "University of Wisdom and Understanding - Get Your Certificate",
     description:
       "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence.",
     card: "summary_large_image",
-    images: ["https://university-of-wisdom.vercel.app/og-image.png"],
+    images: ["https://uow.victorola.dev/images/logo.png"],
   },
   appleWebApp: {
     capable: true,
@@ -94,6 +108,9 @@ export const metadata: Metadata = {
     "Join the University of Wisdom and Understanding. Get certified in life skills, financial wisdom, and street intelligence.",
   category: "Education",
   classification: "Education",
+  alternates: {
+    canonical: "https://uow.victorola.dev",
+  },
 };
 
 export default function RootLayout({
