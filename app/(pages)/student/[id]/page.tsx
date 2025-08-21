@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, useRef } from "react";
 import {
   GraduationCap,
   Download,
@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import html2canvas from "html2canvas";
 
 export default function StudentPage({
   params,
@@ -24,6 +25,8 @@ export default function StudentPage({
   const [isValidID, setIsValidID] = useState(true);
   const [certificateUrl, setCertificateUrl] = useState<string | null>(null);
   const [generatingCertificate, setGeneratingCertificate] = useState(false);
+  const [downloadingPNG, setDownloadingPNG] = useState(false);
+  const certificateRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -93,26 +96,52 @@ export default function StudentPage({
     }
   };
 
-  const handleDownloadPNG = () => {
-    if (student) {
-      const params = new URLSearchParams({
-        name: student.name,
-        level: `${student.degree} of ${student.department}`,
-        module: student.department,
-        score: `${student.gpa.toFixed(2)} / 5.00`,
-        date: new Date().toISOString().split("T")[0],
-        theme: "light",
-        format: "png",
+  const handleDownloadPNG = async () => {
+    if (!certificateRef.current || !student) {
+      toast.error("Certificate not ready yet");
+      return;
+    }
+
+    try {
+      setDownloadingPNG(true);
+      toast.info("Generating PNG... Please wait");
+
+      const canvas = await html2canvas(certificateRef.current, {
+        scale: 2, // Higher quality
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#ffffff",
+        width: 1600,
+        height: 1100,
+        scrollX: 0,
+        scrollY: 0,
       });
 
-      const pngUrl = `/api/certificates/${student.tag}?${params.toString()}`;
-      const link = document.createElement("a");
-      link.href = pngUrl;
-      link.download = `${student.name}-wisdom-certificate.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      toast.success("PNG certificate downloaded successfully!");
+      // Convert canvas to blob
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `${student.name}-wisdom-certificate.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            toast.success("PNG certificate downloaded successfully!");
+          } else {
+            toast.error("Failed to generate PNG");
+          }
+        },
+        "image/png",
+        0.95
+      );
+    } catch (error) {
+      console.error("Error generating PNG:", error);
+      toast.error("Failed to generate PNG certificate");
+    } finally {
+      setDownloadingPNG(false);
     }
   };
 
@@ -221,7 +250,7 @@ export default function StudentPage({
               <p className="text-dark-600">Generating your certificate...</p>
             </div>
           ) : certificateUrl ? (
-            <div className="text-center">
+            <div ref={certificateRef} className="text-center">
               <img
                 src={certificateUrl}
                 alt="Wisdom Certificate"
@@ -278,11 +307,17 @@ export default function StudentPage({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDownloadPNG}
-            disabled={!student || generatingCertificate}
+            disabled={
+              !certificateUrl || generatingCertificate || downloadingPNG
+            }
             className="inline-flex items-center gap-2 px-8 py-4 text-white bg-gradient-to-r from-secondary-600 to-secondary-700 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Download className="w-5 h-5" />
-            Download PNG
+            {downloadingPNG ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Download className="w-5 h-5" />
+            )}
+            {downloadingPNG ? "Generating..." : "Download PNG"}
           </motion.button>
         </motion.div>
 

@@ -293,11 +293,11 @@ export async function GET(
     });
 
     if (format === "png") {
-      // PNG generation temporarily disabled due to native binding issues
+      // PNG generation is now handled client-side with html2canvas
       return NextResponse.json(
         {
           error:
-            "PNG generation temporarily unavailable. Please use SVG format.",
+            "PNG generation is handled client-side. Please use the download button on the certificate page.",
         },
         { status: 503 }
       );
