@@ -65,12 +65,7 @@ const Header = () => {
                 Learn More
               </span>
             </Link>
-            <Link href="/analytics">
-              <span className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200 flex items-center gap-2">
-                <BarChart3 className="w-4 h-4" />
-                Analytics
-              </span>
-            </Link>
+
             <a
               href="https://www.github.com/victorola-coder"
               target="_blank"

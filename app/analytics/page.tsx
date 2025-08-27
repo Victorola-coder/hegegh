@@ -14,40 +14,19 @@ import {
   CheckCircle,
   XCircle,
   Clock,
+  Lock,
 } from "lucide-react";
-
-interface AnalyticsData {
-  overview: {
-    totalStudents: number;
-    studentsWithCertificates: number;
-    studentsWithoutCertificates: number;
-    certificateRate: number;
-  };
-  recentActivity: {
-    today: number;
-    last7Days: number;
-    last30Days: number;
-  };
-  gpaStats: {
-    average: number;
-    minimum: number;
-    maximum: number;
-  };
-  departments: Array<{
-    name: string;
-    count: number;
-  }>;
-  degrees: Array<{
-    level: string;
-    count: number;
-  }>;
-  timestamp: string;
-}
+import PasscodeModal from "../components/global/PasscodeModal";
 
 export default function AnalyticsPage() {
-  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showPasscodeModal, setShowPasscodeModal] = useState(true);
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+
+  // 4-digit passcode - you can change this to any 4 digits
+  const correctPasscode = "1234";
 
   const fetchAnalytics = async () => {
     try {
@@ -66,9 +45,35 @@ export default function AnalyticsPage() {
     }
   };
 
-  useEffect(() => {
+  const handlePasscodeSuccess = () => {
+    setIsAuthenticated(true);
+    setShowPasscodeModal(false);
     fetchAnalytics();
-  }, []);
+  };
+
+  const handlePasscodeClose = () => {
+    // Redirect to home page if user closes the modal
+    window.location.href = "/";
+  };
+
+  useEffect(() => {
+    // Only fetch analytics if authenticated
+    if (isAuthenticated) {
+      fetchAnalytics();
+    }
+  }, [isAuthenticated]);
+
+  // Show passcode modal if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <PasscodeModal
+        isOpen={showPasscodeModal}
+        onClose={handlePasscodeClose}
+        onSuccess={handlePasscodeSuccess}
+        correctPasscode={correctPasscode}
+      />
+    );
+  }
 
   if (loading) {
     return (
@@ -109,12 +114,27 @@ export default function AnalyticsPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          University Analytics Dashboard
-        </h1>
-        <p className="text-gray-600">
-          Real-time insights into student enrollment and certificate generation
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              University Analytics Dashboard
+            </h1>
+            <p className="text-gray-600">
+              Real-time insights into student enrollment and certificate
+              generation
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              setIsAuthenticated(false);
+              setShowPasscodeModal(true);
+            }}
+            className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            <Lock className="h-4 w-4" />
+            <span>Lock</span>
+          </button>
+        </div>
         <div className="flex items-center space-x-2 mt-2 text-sm text-gray-500">
           <Clock className="h-4 w-4" />
           <span>
