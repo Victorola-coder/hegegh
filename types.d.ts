@@ -101,3 +101,31 @@ interface CachedData {
   students: Student[];
   count: number;
 }
+
+interface AnalyticsData {
+  overview: {
+    totalStudents: number;
+    studentsWithCertificates: number;
+    studentsWithoutCertificates: number;
+    certificateRate: number;
+  };
+  recentActivity: {
+    today: number;
+    last7Days: number;
+    last30Days: number;
+  };
+  gpaStats: {
+    average: number;
+    minimum: number;
+    maximum: number;
+  };
+  departments: Array<{
+    name: string;
+    count: number;
+  }>;
+  degrees: Array<{
+    level: string;
+    count: number;
+  }>;
+  timestamp: string;
+}

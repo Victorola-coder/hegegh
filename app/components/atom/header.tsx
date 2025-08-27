@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { GraduationCap, Menu, X, Github, MessageCircle } from "lucide-react";
+import {
+  GraduationCap,
+  Menu,
+  X,
+  Github,
+  MessageCircle,
+  Twitter,
+  BarChart3,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
@@ -57,6 +65,12 @@ const Header = () => {
                 Learn More
               </span>
             </Link>
+            <Link href="/analytics">
+              <span className="font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200 flex items-center gap-2">
+                <BarChart3 className="w-4 h-4" />
+                Analytics
+              </span>
+            </Link>
             <a
               href="https://www.github.com/victorola-coder"
               target="_blank"
@@ -65,6 +79,15 @@ const Header = () => {
             >
               <Github className="w-4 h-4" />
               My Github
+            </a>
+            <a
+              href="https://www.twitter.com/heyVickyJay"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-semibold text-gray-700 hover:text-primary-600 cursor-pointer transition-colors duration-200"
+            >
+              <Twitter className="w-4 h-4" />
+              Follow VickyJay
             </a>
             <a
               href="https://chat.whatsapp.com/ECXQpDNnD1dE8IHkeU5Nvm"
